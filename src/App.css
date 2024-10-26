@@ -9,19 +9,27 @@
   font-size: 1.25rem; /* Adjust as needed for Typography variant "h6" */
 }
 
-
-
-.app-container {
-  width: 100%;
-  height: 400px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-}
-
 .main-content {
   display: flex;
-  flex-grow: 1;
+  /* Adjusting flex-grow to allow children to fit better */
+  flex-wrap: nowrap; /* Prevent wrapping to new lines, allows scrolling if needed */
+  overflow-x: auto; /* Allow horizontal scrolling if needed */
+  overflow-y: hidden; /* Prevent vertical scrolling */
+}
+
+.app-container {
+  width: 100%; /* or a specific width like 300px */
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Prevent overflow from the main container */
+}
+
+/* Media query for responsiveness */
+@media (max-width: 800px) {
+  .main-content {
+    flex-direction: column; /* Stack items vertically */
+    overflow-x: hidden; /* Prevent horizontal scrolling on narrow screens */
+    overflow-y: auto; /* Allow vertical scrolling if needed */
+  }
 }

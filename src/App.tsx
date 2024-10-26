@@ -11,6 +11,8 @@ const App = () => {
     setToggle(event.target.checked);
   };
 
+  
+
   return (
     <Box className="app-container">
       {/* Header */}
@@ -18,7 +20,7 @@ const App = () => {
 
       {/* Main Content */}
       <Box className="main-content">
-        <Fruits /> {/* LeftSection handles age, group, and button logic internally */}
+        <Fruits toggle={toggle}/>  
         <Jar />
       </Box>
     </Box>

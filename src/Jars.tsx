@@ -1,11 +1,13 @@
 import React from 'react';
 import { Box,Typography } from '@mui/material';
 
-const RightSection: React.FC = () => {
+const Jars: React.FC = () => {
   return (
     <Box
       sx={{
         flex: 1,
+        display: 'flex', 
+        flexDirection: 'column',
         border: '1px solid #ccc',
         borderRadius: '8px',
         padding: '16px',
@@ -16,4 +18,4 @@ const RightSection: React.FC = () => {
   );
 };
 
-export default RightSection;
+export default Jars;
