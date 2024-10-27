@@ -16,7 +16,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './store/store';
 import { addtoJar, removeFromJar, deleteFromJar } from './store/jarSlice';
-import Piechart from './Piechart'; // Import the Pie Chart Component
+import Piechart from '../Piechart'; // Import the Pie Chart Component
 
 const Jars: React.FC = () => {
     const cart = useSelector((state: RootState) => state.cart.cart);
@@ -51,10 +51,10 @@ const Jars: React.FC = () => {
                 position: 'relative',
             }}
         >
-            <Typography variant="h6">Jar Container</Typography>
+            <Typography variant="h6">Jam Container</Typography>
             <List>
                 {cart.length === 0 ? (
-                    <Typography>No items in the cart</Typography>
+                    <Typography>No items in the Jam</Typography>
                 ) : (
                     cart.map(item => (
                         <ListItem key={item.id}>

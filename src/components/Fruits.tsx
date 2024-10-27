@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Box, Grid, FormControl, InputLabel, CardActionArea, CardActions, Button, MenuItem, Select, SelectChangeEvent, Typography, Accordion, AccordionSummary, AccordionDetails, Card, CardContent } from '@mui/material';
+import { Box, FormControl, InputLabel, CardActionArea, CardActions, Button, MenuItem, Select, SelectChangeEvent, Typography, Accordion, AccordionSummary, AccordionDetails, Card, CardContent } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import FruitTable from './FruitTable';
+import Grid from '@mui/material/Grid2';
+import FruitTable from '../components/FruitTable';
 import { useDispatch, useSelector } from 'react-redux';
-import { addtoJar } from './store/jarSlice';
-import { setFruits, setLoading as setFruitsLoading } from './store/fruitsSlice';
-import { RootState } from './store/store'; // Adjust the path to your store file as needed
+import { addtoJar } from '../components/store/jarSlice';
+import { setFruits, setLoading as setFruitsLoading } from '../components/store/fruitsSlice';
+import { RootState } from '../components/store/store'; // Adjust the path to your store file as needed
 
 interface Nutrition {
   calories: number;
@@ -33,11 +34,13 @@ const Fruits = ({ toggle }: { toggle: boolean }) => {
     const fetchFruits = async () => {
       dispatch(setFruitsLoading(true));
       try {
-        const response = await axios.get('/api/');
+        const response = await axios.get('/api');
+        
         const fruitData = response.data.map((fruit: Fruit) => ({
           ...fruit,
           calories: fruit.nutritions.calories,
         }));
+        console.log(fruitData)
         dispatch(setFruits(fruitData));
       } catch (error) {
         console.error('Error fetching fruits data:', error);
@@ -162,14 +165,7 @@ const Fruits = ({ toggle }: { toggle: boolean }) => {
                   <AccordionDetails>
                     <Grid container spacing={2}>
                       {fruitsList.map((item) => (
-                        <Grid
-                          key={item.id}
-                          item
-                          xs={12}
-                          sm={6}
-                          md={4}
-                          lg={3}
-                        >
+                        <>
                           <Card
                             sx={{
                               maxWidth: 300,
@@ -207,7 +203,7 @@ const Fruits = ({ toggle }: { toggle: boolean }) => {
                           </Card>
 
 
-                        </Grid>
+                          </>
 
                       ))}
                     </Grid>

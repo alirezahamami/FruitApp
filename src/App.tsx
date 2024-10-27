@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
-import Header from './Header';
-import Fruits from './Fruits';
-import Jar from './Jars';
+import Header from './components/Header';
+import Fruits from './components/Fruits';
+import Jar from './components/Jars';
+import '../src/styles/App.css';
 
 const App = () => {
   const [toggle, setToggle] = useState(false);
@@ -13,10 +14,7 @@ const App = () => {
 
   return (
     <Box className="app-container">
-      {/* Header */}
       <Header toggle={toggle} onToggleChange={handleToggleChange} />
-
-      {/* Main Content */}
       <Box className="main-content">
         <Fruits toggle={toggle}/>  
         <Jar />
