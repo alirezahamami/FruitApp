@@ -1,15 +1,5 @@
-// src/Jars.js
 import React from 'react';
-import {
-    Box,
-    Typography,
-    IconButton,
-    List,
-    ListItem,
-    ListItemText,
-    ListItemSecondaryAction,
-    Divider,
-} from '@mui/material';
+import { Box, Typography, IconButton, List, ListItem, ListItemText, Divider } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -62,7 +52,7 @@ const Jars: React.FC = () => {
                                 primary={`${item.name} x ${item.quantity}`}
                                 secondary={`Calories: ${(item.nutritions?.calories ?? 0) * item.quantity}`}
                             />
-                            <ListItemSecondaryAction>
+                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                 <IconButton
                                     edge="end"
                                     aria-label="add"
@@ -84,7 +74,7 @@ const Jars: React.FC = () => {
                                 >
                                     <DeleteIcon />
                                 </IconButton>
-                            </ListItemSecondaryAction>
+                            </Box>
                         </ListItem>
                     ))
                 )}
@@ -100,9 +90,8 @@ const Jars: React.FC = () => {
                 </Typography>
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Piechart cart={cart} />
+                <Piechart cart={cart} />
             </Box>
-
         </Box>
     );
 };

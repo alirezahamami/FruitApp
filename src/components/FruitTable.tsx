@@ -88,7 +88,14 @@ const FruitTable: React.FC<TableProps> = ({ fruitData }) => {
                             {visibleRows.map((row) => (
                                 <TableRow hover role="checkbox" key={row.id}>
                                     <TableCell padding="checkbox">
-                                        <Button variant="outlined" color="primary" onClick={() => handleAdd({
+                                        <Button variant="outlined" color="primary" sx={{
+                                            fontSize: '1.5rem',
+                                            borderRadius: '50%',
+                                            padding: '8px 8px', // Adjust padding to decrease height and width
+                                            minWidth: '40px', // Set a minimum width
+                                            maxWidth:'40px',
+                                            height: '40px', // Set a specific height
+                                        }} onClick={() => handleAdd({
                                             ...row, // Spread the row to include its properties
                                             nutritions: { calories: row.calories } // Add the nutritions property
                                         })}>
@@ -110,17 +117,17 @@ const FruitTable: React.FC<TableProps> = ({ fruitData }) => {
                     </Table>
                 </TableContainer>
                 <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={(_, newPage) => setPage(newPage)}
-                onRowsPerPageChange={({ target: { value } }) => {
-                    setRowsPerPage(parseInt(value, 10));
-                    setPage(0);
-                }}
-            />
+                    rowsPerPageOptions={[5, 10, 25]}
+                    component="div"
+                    count={rows.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={(_, newPage) => setPage(newPage)}
+                    onRowsPerPageChange={({ target: { value } }) => {
+                        setRowsPerPage(parseInt(value, 10));
+                        setPage(0);
+                    }}
+                />
             </Paper>
         </Box>
     );
