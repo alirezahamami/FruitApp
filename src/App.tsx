@@ -11,8 +11,6 @@ const App = () => {
     setToggle(event.target.checked);
   };
 
-  
-
   return (
     <Box className="app-container">
       {/* Header */}

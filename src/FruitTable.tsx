@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addtoJar } from './store/jarSlice';
 import {
     Box,
     Table,
@@ -12,7 +14,7 @@ import {
     Typography,
     Paper,
     Button,
-    useMediaQuery
+    useMediaQuery,
 } from '@mui/material';
 
 interface Fruit {
@@ -39,13 +41,10 @@ const createData = (fruit: Fruit) => ({
     calories: fruit.nutritions.calories,
 });
 
-const handleAddToJar = (fruitId: number) => {
-    console.log('Fruit added:', fruitId);
-};
-
 const FruitTable: React.FC<TableProps> = ({ fruitData }) => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
+    const dispatch = useDispatch();
 
     const isMobile = useMediaQuery('(max-width:600px)');
 
@@ -55,6 +54,11 @@ const FruitTable: React.FC<TableProps> = ({ fruitData }) => {
         () => rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
         [page, rowsPerPage, rows],
     );
+
+    const handleAdd = (fruit: Fruit) => {
+        const fruitWithQuantity = { ...fruit, quantity: 1 };
+        dispatch(addtoJar(fruitWithQuantity));
+    };
 
     return (
         <Box sx={{ width: '100%', overflowX: 'hidden' }}>
@@ -84,7 +88,10 @@ const FruitTable: React.FC<TableProps> = ({ fruitData }) => {
                             {visibleRows.map((row) => (
                                 <TableRow hover role="checkbox" key={row.id}>
                                     <TableCell padding="checkbox">
-                                        <Button variant="outlined" color="primary" onClick={() => handleAddToJar(row.id)}>
+                                        <Button variant="outlined" color="primary" onClick={() => handleAdd({
+                                            ...row, // Spread the row to include its properties
+                                            nutritions: { calories: row.calories } // Add the nutritions property
+                                        })}>
                                             +
                                         </Button>
                                     </TableCell>

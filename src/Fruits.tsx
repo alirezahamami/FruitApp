@@ -3,13 +3,13 @@ import axios from 'axios';
 import { Box, Grid, FormControl, InputLabel, CardActionArea, CardActions, Button, MenuItem, Select, SelectChangeEvent, Typography, Accordion, AccordionSummary, AccordionDetails, Card, CardContent } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FruitTable from './FruitTable';
+import { useDispatch, useSelector } from 'react-redux';
+import { addtoJar } from './store/jarSlice';
+import { setFruits, setLoading as setFruitsLoading } from './store/fruitsSlice';
+import { RootState } from './store/store'; // Adjust the path to your store file as needed
 
 interface Nutrition {
   calories: number;
-}
-
-interface FruitTable {
-  fruitData: Fruit[];
 }
 
 interface Fruit {
@@ -25,42 +25,57 @@ type Group = 'None' | 'family' | 'order' | 'genus';
 
 const Fruits = ({ toggle }: { toggle: boolean }) => {
   const [open, setOpen] = useState(false);
-  const [fruits, setFruits] = useState<Fruit[]>([]);
   const [group, setGroup] = useState<Group>('None');
-
-  const handleGroupChange = (event: SelectChangeEvent) => {
-    setGroup(event.target.value as Group);
-  };
-
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const dispatch = useDispatch();
+  const { fruits } = useSelector((state: RootState) => state.fruits);
 
   useEffect(() => {
     const fetchFruits = async () => {
+      dispatch(setFruitsLoading(true));
       try {
         const response = await axios.get('/api/');
         const fruitData = response.data.map((fruit: Fruit) => ({
           ...fruit,
           calories: fruit.nutritions.calories,
         }));
-        setFruits(fruitData);
+        dispatch(setFruits(fruitData));
       } catch (error) {
         console.error('Error fetching fruits data:', error);
+      } finally {
+        dispatch(setFruitsLoading(false));
       }
     };
     fetchFruits();
-  }, []);
+  }, [dispatch]);
+
+  const handleGroupChange = (event: SelectChangeEvent<string>) => {
+    setGroup(event.target.value as Group);
+  };
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const handleAdd = (fruit: Fruit) => {
+    const fruitWithQuantity = { ...fruit, quantity: 1 };
+    dispatch(addtoJar(fruitWithQuantity));
+  };
+
+  const handleAddAll = (fruitsList: Fruit[]) => {
+    fruitsList.forEach(fruit => {
+      const fruitWithQuantity = { ...fruit, quantity: 1 };
+      dispatch(addtoJar(fruitWithQuantity));
+    });
+  };
+
 
   const groupedFruits = fruits.reduce((acc, fruit) => {
-    const key: string = group === 'None' ? 'All Fruits' : (fruit[group as keyof Fruit] as string);
+    const key = group === 'None' ? 'All Fruits' : (fruit[group as keyof Fruit] ?? 'Others') as string;
     if (!acc[key]) acc[key] = [];
     acc[key].push(fruit);
     return acc;
   }, {} as Record<string, Fruit[]>);
 
   return (
-    <Box sx={{ flex: 1, padding: '16px', display: 'flex', flexDirection: 'column', position: 'relative' }}>
-
+    <Box sx={{ flex: 1, border: '1px solid #ccc', borderRadius: '8px', padding: '16px', display: 'flex', flexDirection: 'column', position: 'relative' }}>
       {toggle ? (
         <FruitTable fruitData={fruits} />
       ) : (
@@ -85,7 +100,6 @@ const Fruits = ({ toggle }: { toggle: boolean }) => {
               <MenuItem value="genus">Genus</MenuItem>
             </Select>
           </FormControl>
-
 
           <Box
             sx={{
@@ -124,6 +138,7 @@ const Fruits = ({ toggle }: { toggle: boolean }) => {
                       color="primary"
                       fullWidth
                       style={{ textAlign: "center" }}
+                      onClick={() => handleAdd(item)}
                     >
                       +
                     </Button>
@@ -133,14 +148,16 @@ const Fruits = ({ toggle }: { toggle: boolean }) => {
             ) : (
               Object.entries(groupedFruits).map(([groupName, fruitsList]) => (
                 <Accordion key={groupName}>
-
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-
                     <Typography variant="h6">{groupName}</Typography>
-
                   </AccordionSummary>
-                  <Button size="large" color="primary">
-                    Add all fruits
+                  <Button
+                    size="large"
+                    color="primary"
+                    style={{ textAlign: "center" }}
+                    onClick={() => handleAddAll(fruitsList)} // Call handleAddAll with the grouped fruits
+                  >
+                    Add all
                   </Button>
                   <AccordionDetails>
                     <Grid container spacing={2}>
@@ -181,23 +198,29 @@ const Fruits = ({ toggle }: { toggle: boolean }) => {
                                 color="primary"
                                 fullWidth
                                 style={{ textAlign: "center" }}
+                                onClick={() => handleAdd(item)}
                               >
                                 +
                               </Button>
                             </CardActions>
+
                           </Card>
+
+
                         </Grid>
+
                       ))}
                     </Grid>
+
                   </AccordionDetails>
                 </Accordion>
               ))
+
             )}
           </Box>
         </>
       )}
     </Box>
-
   );
 };
 
