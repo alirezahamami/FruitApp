@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
 import Header from './components/Header';
-import Fruits from './components/Fruits';
-import Jar from './components/Jars';
+import Fruits from './pages/Fruits';
+import Jar from './pages/Jars';
 import '../src/styles/App.css';
 
 const App = () => {

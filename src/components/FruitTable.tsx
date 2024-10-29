@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addtoJar } from './store/jarSlice';
+import { addtoJar } from '../store/jarSlice';
 import {
     Box,
     Table,
@@ -61,24 +61,24 @@ const FruitTable: React.FC<TableProps> = ({ fruitData }) => {
     };
 
     return (
-        <Box sx={{ width: '100%', overflowX: 'hidden' }}>
-            <Paper sx={{ width: '100%', mb: 2 }}>
-                <Toolbar sx={{ pl: { sm: 2 }, pr: { xs: 1, sm: 1 } }}>
+        <Box className="fruit-table-container">
+            <Paper className="fruit-table-paper">
+                <Toolbar className="fruit-table-toolbar">
                     <Typography variant="h6" id="tableTitle" component="div">
                         Fruit Table
                     </Typography>
                 </Toolbar>
-                <TableContainer sx={{ maxHeight: 350, minHeight: 350, width: '100%', overflowX: 'auto' }}>
-                    <Table sx={{ minWidth: isMobile ? 350 : 350 }} aria-labelledby="tableTitle">
+                <TableContainer className="fruit-table-container">
+                    <Table className={`fruit-table ${isMobile ? 'mobile' : ''}`} aria-labelledby="tableTitle">
                         <TableHead>
                             <TableRow>
-                                <TableCell padding="checkbox" />
-                                <TableCell>Name</TableCell>
+                                <TableCell padding="checkbox" className="border-right" />
+                                <TableCell className="border-right">Name</TableCell>
                                 {!isMobile && (
                                     <>
-                                        <TableCell>Genus</TableCell>
-                                        <TableCell>Family</TableCell>
-                                        <TableCell>Order</TableCell>
+                                        <TableCell className="border-right">Genus</TableCell>
+                                        <TableCell className="border-right">Family</TableCell>
+                                        <TableCell className="border-right">Order</TableCell>
                                     </>
                                 )}
                                 <TableCell align="right">Calories</TableCell>
@@ -87,27 +87,24 @@ const FruitTable: React.FC<TableProps> = ({ fruitData }) => {
                         <TableBody>
                             {visibleRows.map((row) => (
                                 <TableRow hover role="checkbox" key={row.id}>
-                                    <TableCell padding="checkbox">
-                                        <Button variant="outlined" color="primary" sx={{
-                                            fontSize: '1.5rem',
-                                            borderRadius: '50%',
-                                            padding: '8px 8px', // Adjust padding to decrease height and width
-                                            minWidth: '40px', // Set a minimum width
-                                            maxWidth:'40px',
-                                            height: '40px', // Set a specific height
-                                        }} onClick={() => handleAdd({
-                                            ...row, // Spread the row to include its properties
-                                            nutritions: { calories: row.calories } // Add the nutritions property
-                                        })}>
+                                    <TableCell padding="checkbox" className="border-right">
+                                        <Button
+                                            variant="outlined"
+                                            className="add-button"
+                                            onClick={() => handleAdd({
+                                                ...row,
+                                                nutritions: { calories: row.calories },
+                                            })}
+                                        >
                                             +
                                         </Button>
                                     </TableCell>
-                                    <TableCell>{row.name}</TableCell>
+                                    <TableCell className="border-right">{row.name}</TableCell>
                                     {!isMobile && (
                                         <>
-                                            <TableCell>{row.genus}</TableCell>
-                                            <TableCell>{row.family}</TableCell>
-                                            <TableCell>{row.order}</TableCell>
+                                            <TableCell className="border-right">{row.genus}</TableCell>
+                                            <TableCell className="border-right">{row.family}</TableCell>
+                                            <TableCell className="border-right">{row.order}</TableCell>
                                         </>
                                     )}
                                     <TableCell align="right">{row.calories}</TableCell>

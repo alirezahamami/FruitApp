@@ -1,3 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  background-color: #E9EFEC;
+}
+
 .header-container {
   display: flex;
   justify-content: space-between;
@@ -6,30 +17,178 @@
 }
 
 .header-container .MuiTypography-root {
-  font-size: 1.25rem; /* Adjust as needed for Typography variant "h6" */
+  font-size: 1.25rem;
 }
 
 .main-content {
   display: flex;
-  /* Adjusting flex-grow to allow children to fit better */
-  flex-wrap: nowrap; /* Prevent wrapping to new lines, allows scrolling if needed */
-  overflow-x: auto; /* Allow horizontal scrolling if needed */
-  overflow-y: hidden; /* Prevent vertical scrolling */
+  margin-bottom: 10px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .app-container {
-  width: 100%; /* or a specific width like 300px */
+  width: 100%;
   border-radius: 8px;
+  
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* Prevent overflow from the main container */
+  overflow: hidden;
+  background-color: #E9EFEC; /* Moved background color here */
 }
 
 /* Media query for responsiveness */
 @media (max-width: 800px) {
   .main-content {
-    flex-direction: column; /* Stack items vertically */
-    overflow-x: hidden; /* Prevent horizontal scrolling on narrow screens */
-    overflow-y: auto; /* Allow vertical scrolling if needed */
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
+}
+
+
+/* Fruits component styles */
+.fruits-container {
+  flex: 1;
+  margin-right: 8px;
+  margin-left: 4px;
+  margin-top: 8px;
+  border: 4px solid #ccc;
+  border-radius: 8px;
+  padding: 16px; /* 'p: 2' in MUI equates to 16px padding */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all 0.1s ease; /* Smooth transition effect */
+}
+
+.fruits-container:hover {
+  border-color: #243642; /* Highlight border color on hover */
+  box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
+}
+
+
+.jars-container {
+  flex: 1;
+  margin-right: 6px;
+  border: 4px solid #ccc;
+  border-radius: 8px;
+  padding: 16px; /* p: 2 in MUI equates to 16px */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all 0.1s ease; /* Smooth transition effect */
+}
+
+.jars-container:hover {
+  border-color: #243642; /* Highlight border color on hover */
+  box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
+
+.jars-divider {
+  margin: 8px; /* marginY: 2 */
+  border-bottom-width: 8px !important;
+}
+
+.piechart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* TotalCalories component styles */
+.total-calories-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.total-calories-text {
+  margin-right: 16px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.custom-switch .MuiSwitch-switchBase.Mui-checked {
+  color: #6A9C89; /* Custom color for the switch thumb when active */
+}
+
+.custom-switch .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track {
+  background-color: #6A9C89; /* Custom color for the track when active */
+}
+
+.group-selector {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  left : 3px;
+  min-width: 90px;
+}
+
+
+.fruit-table-container {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.fruit-table-paper {
+  width: 100%;
+  margin-bottom: 2px;
+  background-color: #E9EFEC !important;
+}
+
+.fruit-table-toolbar {
+  padding-left: 16px; /* Adjust according to your design */
+  padding-right: 8px; /* Adjust according to your design */
+}
+
+.fruit-table {
+  min-width: 350px!important;
+}
+
+.border-right {
+  border-right: 1px solid #e0e0e0!important;
+}
+
+.add-button {
+  font-size: 1.5rem!important;
+  background-color: #6A9C89!important;
+  color: #FFFFFF!important; /* Font color */
+  border: 2px solid #6A9C89!important; /* Border color and width */
+  border-radius: 50%!important;
+  padding: 8px 8px!important;
+  min-width: 40px!important;
+  max-width: 40px!important;
+  height: 40px!important;
+}
+
+.add-button:hover {
+  background-color: #16423C!important; /* Darker shade for hover effect */
+}
+
+.fruits-list {
+  margin-top: 64px; /* Equivalent to `mt: 8` if using a spacing scale */
+}
+
+.no-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px; /* Equivalent to `gap: 2` if using a spacing scale */
+}
+
+.titleStyles{
+  position: absolute; /* Position the title */
+  top: -20px; /* Move the title above the border */
+  left: 50%; /* Center the title */
+  transform: translateX(-50%); /* Adjust centering */
+  padding: 0 10px; /* Padding around the title text */
+  font-weight: bold; /* Make the title bold */
+  background-color: #E9EFEC; /* Background color for the title */
 }
