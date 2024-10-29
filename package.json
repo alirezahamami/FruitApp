@@ -6,11 +6,11 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"vite\" \"node server.js\"",
-    "build": " tsc -b && vite build ",
+    "build": " tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "start": "npm run build && node server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
