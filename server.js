@@ -29,7 +29,10 @@ app.get('/api', async (req, res) => {
     const fruitData = await fetchFruitData();
     const processedData = fruitData.map(({ nutritions, ...fruit }) => ({
       ...fruit,
-      calories: nutritions.calories,
+      nutritions: {
+        ...nutritions, // Spread existing nutritions if it exists
+        calories: nutritions ? nutritions.calories : null, 
+      },
     }));
     res.status(200).json(processedData);
   } catch (error) {
