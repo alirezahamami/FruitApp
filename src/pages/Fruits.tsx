@@ -20,6 +20,7 @@ const Fruits = ({ toggle }: { toggle: boolean }) => {
     const fetchFruits = async () => {
       dispatch(setFruitsLoading(true));
       try {
+        
         const response = await axios.get('/api');
         const fruitData = response.data.map((fruit: Fruit) => ({
           ...fruit,
