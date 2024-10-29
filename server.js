@@ -2,10 +2,15 @@ import express from 'express';
 import dotenv from 'dotenv';
 import axios from 'axios';
 dotenv.config();
+import path from 'path'; // Import path module
+
 
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Serve static files from the dist directory
+app.use(express.static(path.join(process.cwd(), 'dist')));
 
 
 const fetchFruitData = async () => {

@@ -5,12 +5,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node server.js && vite",
+    "dev": "vite",
     "build": " tsc -b && vite build ",
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "npm run build && node server.js && gh-pages -d dist"
+    "start": "npm run build && node server.js"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
